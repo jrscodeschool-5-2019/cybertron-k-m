@@ -27,7 +27,10 @@ console.log(results)
   const ex3 = 'use reduce to sum the numbers'
   const exercise3 = _ => {
     const numbers = [1, 2, 3, 4, 5, 6]
-    return 0 // return answer here
+    let sum = numbers.reduce((acc, val) => {
+      return acc + val;
+    });
+    return sum // return answer here
   }
 
   const ex4 = `use compose to run the following three commands
