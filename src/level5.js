@@ -40,14 +40,21 @@ const data = {
   ]
 }
 
+
+
+//map, compose, filter, reduce, append, pluck, lt, __,
+//join, prop, path 
 /**
  * Level 5 - Challenge 1
  *
  * map through the data.rows array and return a list of movie docs.
  */
 const challenge1 = () => {
-  return null
-}
+ return map(prop('doc'), data.rows) 
+  }
+
+
+
 
 /** Level 5 = Challenge 2
  *
@@ -56,8 +63,12 @@ const challenge1 = () => {
  *
  */
 const challenge2 = () => {
-  return null
-}
+  const isOldMovie = compose(
+    lt('__','1990'),
+    prop('year')
+  )
+  return filter(isOldMovie, pluck('doc', data.rows))
+}  
 
 /** level 5 - Challenge 3
  *
@@ -68,9 +79,20 @@ const challenge2 = () => {
  * check out - append - http://ramdajs.com/docs/#append
  */
 const challenge3 = () => {
-  return null
+ const reducer = function (acc, movie) {
+if (movie.year < '1990') {
+ acc['80s'] = append(movie, acc['80s'] || [])
+}else if (movie.year < '2000') {
+  acc['90s'] = append(movie, acc['90s'] || [])
+}else {
+  acc['00s'] = append(movie, acc['00s'] || [])
 }
 
+ return acc
+
+}
+return reduce(reducer, {}, pluck('doc', data.rows))
+}
 /**
  * Level 5 - Challenge 4
  *
@@ -84,6 +106,18 @@ const challenge3 = () => {
 const challenge4 = () => {
   return [] 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default () => {
   test('Level 5 - Challenge 1', t => {
